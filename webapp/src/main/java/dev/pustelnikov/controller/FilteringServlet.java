@@ -18,8 +18,10 @@ public class FilteringServlet extends HttpServlet {
 		int to = Integer.parseInt(request.getParameter("to"));
 		HomeDeviceService service = new HomeDeviceService();
 		service.sortByPower();
-		List<HomeDevice> filteredList = service.filterByPowerRange(from, to);
-		request.setAttribute("filteredList", filteredList);
+		List<HomeDevice> devices = service.filterByPowerRange(from, to);
+		request.setAttribute("from", from);
+		request.setAttribute("to", to);
+		request.setAttribute("devices", devices);
 		request.getRequestDispatcher("/jsp/filt.jsp").forward(request, response);
 	}
 }

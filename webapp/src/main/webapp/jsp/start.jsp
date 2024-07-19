@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"  isELIgnored="false" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,11 +8,8 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
-		<%
-			String username = (String) request.getSession().getAttribute("username");
-		%>
 		<div class="main">
-			<h1>Hello <% out.print(username); %></h1>
+			<h1>Hello ${username}</h1>
 			<h2>Task 3</h2>
 			<h3>Simple Web-application</h3>
 			<p>This app displays a typical list of home devices, calculates power consumption, sorts the devices by power.</p>

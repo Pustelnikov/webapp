@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="dev.pustelnikov.service.HomeDeviceService" %>
-<%@ page import="dev.pustelnikov.model.HomeDevice" %>
-<%@ page import="java.util.List" %>
+    pageEncoding="UTF-8"  isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,20 +9,16 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
-		<%
-			HomeDeviceService service = (HomeDeviceService) request.getAttribute("service");
-			List<HomeDevice> devices = service.getDevices();
-		%>
 		<div class="main">
 			<h2>Action</h2>
 			<p>There are list of home devices below, you can choose the action</p>
 			<div>
 				<table>
-					<%
-						for (HomeDevice device : devices) {
-						out.println("<tr>" + "<td>" + device.toString() + "</td>" + "</tr>");
-						}
-					%>
+					<c:forEach items="${devices}" var="device">
+						<tr>
+							<td>${device.toString()}</td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div>
 			<br>
@@ -54,14 +48,11 @@
             	<h3>3 Turn on some devices and calculate its power</h3>
 	            <form action="calc">
 	            	<table>
-		            	<% 
-		            		for (int i = 0; i < devices.size(); i++) {
-		            		out.print("<tr>" + "<td>");
-							out.print("<input type=\"checkbox\"");
-							out.print(" name=\"checked\"" + "value=" + "\"" + i + "\"" + ">" + devices.get(i).getDescription());
-							out.print("</td>" + "</tr>");
-							}
-		            	%>
+		            	<c:forEach items="${devices}" var="device" varStatus="loop">
+		            		<tr>
+		            			<td><input type="checkbox" name="checked" value="${loop.index}"> ${devices.get(loop.index).getDescription()}</td>
+							</tr>
+						</c:forEach>
 	            	</table>
 	            	<button type="submit" value="Submit">Calculate</button>
 	            </form>

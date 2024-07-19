@@ -1,6 +1,8 @@
 package dev.pustelnikov.controller;
 
 import java.io.IOException;
+import java.util.List;
+import dev.pustelnikov.model.HomeDevice;
 import dev.pustelnikov.service.HomeDeviceService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -22,7 +24,8 @@ public class CalculatingServlet extends HttpServlet {
 				service.getDevices().get(index).setStatus(true);
 		}
 		Integer sumPowerOfTurnedOnDevices = service.calculatePowerOfTurnedOnDevices();
-		request.setAttribute("service", service);
+		List<HomeDevice> devices = service.getDevices();
+		request.setAttribute("devices", devices);
 		request.setAttribute("sumPower", sumPowerOfTurnedOnDevices);
 		request.getRequestDispatcher("/jsp/calc.jsp").forward(request, response);
 		}

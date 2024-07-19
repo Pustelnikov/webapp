@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="dev.pustelnikov.service.HomeDeviceService" %>
-<%@ page import="dev.pustelnikov.model.HomeDevice" %>
-<%@ page import="java.util.List" %>
+    pageEncoding="UTF-8"  isELIgnored="false" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,21 +9,17 @@
 		<link rel="stylesheet" href="css/style.css">
 	</head>
 	<body>
-		<%
-			HomeDeviceService service = (HomeDeviceService) request.getAttribute("service");
-			List<HomeDevice> devices = service.getDevices();
-		%>
 		<div class="main">
 			<h2>Sorting result</h2>
 			<p>Devices sorted by power</p>
 			<br>
 			<div>
 				<table>
-					<%
-						for (HomeDevice device : devices) {
-						out.println("<tr>" + "<td>" + device.toString() + "</td>" + "</tr>");
-						}
-					%>
+					<c:forEach items="${devices}" var="device">
+						<tr>
+							<td>${device.toString()}</td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div>
 			<br>

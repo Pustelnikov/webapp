@@ -1,6 +1,8 @@
 package dev.pustelnikov.controller;
 
 import java.io.IOException;
+import java.util.List;
+import dev.pustelnikov.model.HomeDevice;
 import dev.pustelnikov.service.HomeDeviceService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -14,7 +16,8 @@ public class SortingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		HomeDeviceService service = new HomeDeviceService();
 		service.sortByPower();
-		request.setAttribute("service", service);
+		List<HomeDevice> devices = service.getDevices();
+		request.setAttribute("devices", devices);
 		request.getRequestDispatcher("/jsp/sort.jsp").forward(request, response);
 	}
 }
